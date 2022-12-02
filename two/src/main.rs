@@ -6,18 +6,22 @@ use std::{
 
 fn main() {
     if let Ok(lines) = read_lines("./input/two.txt") {
-        let mut sum_vec: Vec<u128> = vec![];
+        let mut round_1_sum_vec: Vec<u128> = vec![];
+        let mut round_2_sum_vec: Vec<u128> = vec![];
         for line in lines {
             if let Ok(line_processed) = line {
                 let split = line_processed.split_ascii_whitespace();
                 let vec: Vec<&str> = FromIterator::from_iter(split);
                 let opp_move = vec.get(0).unwrap().chars().nth(0).unwrap();
                 let strat_move = vec.get(1).unwrap().chars().nth(0).unwrap();
-                let score = round_score_two(opp_move, strat_move);
-                sum_vec.push(score);
+                let round_score = round_score(opp_move, strat_move);
+                let round_score_two = round_score_two(opp_move, strat_move);
+                round_1_sum_vec.push(round_score);
+                round_2_sum_vec.push(round_score_two);
             }
         }
-        println!("Sum: {}", sum_vec.iter().sum::<u128>());
+        println!("First task: {}", round_1_sum_vec.iter().sum::<u128>());
+        println!("Second task: {}", round_2_sum_vec.iter().sum::<u128>());
     }
 }
 
