@@ -1,11 +1,15 @@
-use std::{io::{self, BufRead}, path::Path, fs::File};
+use std::{
+    fs::File,
+    io::{self, BufRead},
+    path::Path,
+};
 
 fn main() {
     if let Ok(lines) = read_lines("./input/two.txt") {
-        let mut sum_vec : Vec<u128> = vec![];
+        let mut sum_vec: Vec<u128> = vec![];
         for line in lines {
             if let Ok(line_processed) = line {
-               let split = line_processed.split_ascii_whitespace();
+                let split = line_processed.split_ascii_whitespace();
                 let vec: Vec<&str> = FromIterator::from_iter(split);
                 let opp_move = vec.get(0).unwrap().chars().nth(0).unwrap();
                 let strat_move = vec.get(1).unwrap().chars().nth(0).unwrap();
@@ -36,7 +40,6 @@ fn round_score(opponent_move: char, strategy_move: char) -> u128 {
             'Y' => 3,
             'Z' => 6,
             _ => 0,
-
         },
         'C' => match strategy_move {
             'X' => 0,
@@ -68,7 +71,6 @@ fn round_score_two(opponent_move: char, strategy_move: char) -> u128 {
             'Y' => 2,
             'Z' => 3,
             _ => 0,
-
         },
         'C' => match strategy_move {
             'X' => 2,
@@ -78,7 +80,6 @@ fn round_score_two(opponent_move: char, strategy_move: char) -> u128 {
         },
         _ => 0,
     };
-    println!("{} {} {}", move_score, round_outcome_score, move_score + round_outcome_score);
     move_score + round_outcome_score
 }
 
@@ -89,4 +90,3 @@ where
     let file = File::open(filename)?;
     Ok(io::BufReader::new(file).lines())
 }
-
