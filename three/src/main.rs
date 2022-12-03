@@ -11,7 +11,6 @@ fn main() {
         let mut line_vec: Vec<String> = vec![];
         for line in lines {
             if let Ok(line_processed) = line {
-                println!("{}, {}, {:?}", line_processed, line_count, line_vec);
                 line_count += 1;
                 line_vec.push(line_processed);
                 if line_count > 2 {
@@ -37,7 +36,6 @@ fn find_common_char(line_half_one: String, line_half_two: String) -> String {
             common_chars.push(c);
         }
     }
-    println!("{}", common_chars);
     common_chars
 }
 
@@ -54,7 +52,6 @@ fn find_common_char_over_three_lines(
             common_chars.push(c);
         }
     }
-    println!("{}", common_chars);
     common_chars
 }
 
