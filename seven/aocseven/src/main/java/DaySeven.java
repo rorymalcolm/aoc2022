@@ -10,13 +10,13 @@ public class DaySeven {
 
   private static final Integer TOTAL_FILESYSTEM_SIZE = 70000000;
   public static void main(String[] args) throws IOException {
-    List<String> fileLines = Files.lines(Path.of("src/main/resources/seven.txt")).toList();
-    Directory root = new Directory("/");
+    final List<String> fileLines = Files.lines(Path.of("src/main/resources/seven.txt")).toList();
+    final Directory root = new Directory("/");
     processLine(root, fileLines);
     root.prettyPrintTree();
-    var directories = Directory.findSumOfDirectoryWithSizeUnder(root, PART_ONE_SIZE);
+    final var directories = Directory.findSumOfDirectoryWithSizeUnder(root, PART_ONE_SIZE);
     System.out.println("Part1: " + directories.stream().mapToLong(DirectoryNameAndSize::size).sum());
-    var dirs = Directory.collectAllDirectories(root);
+    final var dirs = Directory.collectAllDirectories(root);
     final var TOTAL_SIZE = Directory.totalSizeOfChildren(root.childNodes, root.childDirectories);
     final var UNUSED_SPACE = TOTAL_FILESYSTEM_SIZE - TOTAL_SIZE;
     final var TOTAL_REQUIRED = PART_TWO_SIZE - UNUSED_SPACE;
@@ -32,7 +32,7 @@ public class DaySeven {
     if (lines.isEmpty() || depth > lines.size() - 1) {
       return;
     }
-    String line = lines.get(depth);
+    final String line = lines.get(depth);
     if (line.isBlank()) {
       return;
     }
@@ -49,8 +49,8 @@ public class DaySeven {
           processLine(root, root, lines, depth + 1);
           return;
         } else {
-          String directoryName = line.split(" ")[2];
-          Directory directory = new Directory(directoryName, current);
+          final String directoryName = line.split(" ")[2];
+          final Directory directory = new Directory(directoryName, current);
           current.insertDirectory(directory);
           processLine(root, directory, lines, depth + 1);
           return;
@@ -58,7 +58,7 @@ public class DaySeven {
       }
       processLine(root, current, lines, depth + 1);
     } else if (!line.startsWith("dir")) {
-      List<String> split = List.of(line.split(" "));
+      final List<String> split = List.of(line.split(" "));
       current.insertChildNode(new Node(current, split.get(1), Integer.parseInt(split.get(0))));
       processLine(root, current, lines, depth + 1);
     } else {
